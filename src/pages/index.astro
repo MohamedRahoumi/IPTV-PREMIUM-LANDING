@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import TrustIndicators from '../components/TrustIndicators.astro';
+import Partners from '../components/Partners.astro';
+import PricingSection from '../components/PricingSection.astro';
+import Categories from '../components/Categories.astro';
+import Features from '../components/Features.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import StickyWhatsApp from '../components/StickyWhatsApp.astro';
+---
+
+<BaseLayout
+  title="IPTV Premium — Eagle 4K & Strong 8K | Premium IPTV Subscription"
+  description="Get the best IPTV subscription with Eagle 4K ($25/yr) and Strong 8K ($40/yr). Watch live sports, movies, TV channels, and series in 4K/8K. 24/7 support."
+  keywords="IPTV, IPTV subscription, Eagle 4K, Strong 8K, live football, premium IPTV, 4K streaming, 8K streaming, Hot Player"
+  ogImage="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=1200&q=80"
+>
+  <Nav />
+  <main>
+    <Hero />
+    <TrustIndicators />
+    <Partners />
+    <PricingSection />
+    <Categories />
+    <Features />
+    <Testimonials />
+    <FAQ />
+    <Contact />
+  </main>
+  <Footer />
+  <StickyWhatsApp />
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</BaseLayout>
