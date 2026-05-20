@@ -1,0 +1,109 @@
+---
+const indicators = [
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    stat: '5 min',
+    label: 'Average activation time',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+    stat: '24/7',
+    label: 'Customer support',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    stat: '99.9%',
+    label: 'Server uptime',
+  },
+  {
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>',
+    stat: '4K & 8K',
+    label: 'Ultra HD quality',
+  },
+];
+---
+
+<section class="trust-section">
+  <div class="container">
+    <div class="trust-grid">
+      {indicators.map((item, i) => (
+        <div class={`trust-card reveal reveal-delay-${i + 1}`}>
+          <div class="trust-icon" set:html={item.icon} />
+          <div>
+            <div class="trust-stat">{item.stat}</div>
+            <div class="trust-label">{item.label}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust-section {
+    padding: 0 0 80px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .trust-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+  }
+
+  .trust-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-3px);
+  }
+
+  .trust-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--blue-50);
+    color: var(--blue-500);
+    flex-shrink: 0;
+  }
+
+  .trust-stat {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    letter-spacing: -0.02em;
+  }
+
+  .trust-label {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    font-weight: 500;
+  }
+
+  @media (max-width: 868px) {
+    .trust-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .trust-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
