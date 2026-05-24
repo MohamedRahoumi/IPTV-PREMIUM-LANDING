@@ -1,0 +1,189 @@
+---
+const categories = [
+  {
+    title: 'Live Football & Sports',
+    subtitle: 'Never miss a match',
+    desc: 'Premier League, La Liga, Serie A, Bundesliga, Champions League, NFL, NBA, UFC, and more. Watch every goal, every tackle, every victory.',
+    image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&q=80',
+    alt: 'Football stadium with floodlights at night',
+    color: '#2563eb',
+  },
+  {
+    title: 'Premium Movies',
+    subtitle: 'Cinema at home',
+    desc: 'Thousands of movies from Hollywood blockbusters to international cinema. New releases added every week in stunning 4K and 8K.',
+    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&q=80',
+    alt: 'Movie theater with red seats and screen',
+    color: '#0ea5e9',
+  },
+  {
+    title: 'TV Series',
+    subtitle: 'Binge-worthy collections',
+    desc: 'Complete seasons of the most popular TV series. Drama, comedy, thriller, sci-fi, and documentaries — endless entertainment.',
+    image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&q=80',
+    alt: 'Person holding remote control on sofa watching TV',
+    color: '#8b5cf6',
+  },
+];
+---
+
+<section id="content" class="section categories-section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div class="section-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Entertainment Library
+      </div>
+      <h2 class="section-title">What you can watch</h2>
+      <p class="section-subtitle">
+        Access an enormous library of live sports, premium movies, and top TV series — all in crystal-clear quality.
+      </p>
+    </div>
+    <div class="categories-grid">
+      {categories.map((cat, i) => (
+        <article class={`category-card card reveal reveal-delay-${i + 1}`}>
+          <div class="category-image-wrapper">
+            <img
+              src={cat.image}
+              alt={cat.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              class="category-image"
+            />
+            <div class="category-overlay"></div>
+            <div class="category-badge" style={`background: ${cat.color};`}>
+              {cat.title}
+            </div>
+          </div>
+          <div class="category-info">
+            <h3 class="category-title">{cat.title}</h3>
+            <p class="category-subtitle">{cat.subtitle}</p>
+            <p class="category-desc">{cat.desc}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .categories-section {
+    background: var(--white);
+  }
+
+  .section-heading {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue-500);
+    background: rgba(37, 99, 235, 0.06);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    margin-bottom: 20px;
+  }
+
+  .section-heading .section-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .section-heading .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-500);
+    margin-top: 14px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .category-card {
+    overflow: hidden;
+  }
+
+  .category-image-wrapper {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .category-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .category-card:hover .category-image {
+    transform: scale(1.06);
+  }
+
+  .category-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--white) 0%, transparent 55%);
+  }
+
+  .category-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--white);
+  }
+
+  .category-info {
+    padding: 20px 24px 28px;
+  }
+
+  .category-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .category-subtitle {
+    font-size: 0.85rem;
+    color: var(--blue-500);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .category-desc {
+    font-size: 0.9rem;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 868px) {
+    .categories-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .category-image-wrapper {
+      height: 200px;
+    }
+  }
+</style>
