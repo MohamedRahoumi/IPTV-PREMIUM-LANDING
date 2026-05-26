@@ -1,0 +1,160 @@
+---
+const testimonials = [
+  {
+    name: 'Marco R.',
+    location: 'Milan, Italy',
+    avatar: 'MR',
+    text: 'Switched to Strong 8K and the quality is incredible. The Champions League matches in 4K are flawless. Best decision I made for my entertainment setup.',
+    rating: 5,
+  },
+  {
+    name: 'Sarah K.',
+    location: 'London, UK',
+    avatar: 'SK',
+    text: 'Setup took less than 5 minutes. The support team was super helpful on WhatsApp. Been using Eagle 4K for 6 months now — zero issues.',
+    rating: 5,
+  },
+  {
+    name: 'Ahmed M.',
+    location: 'Dubai, UAE',
+    avatar: 'AM',
+    text: 'Perfect for watching both local and international channels. The VOD library is massive. Definitely the best IPTV service I have used.',
+    rating: 5,
+  },
+];
+---
+
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div class="section-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Testimonials
+      </div>
+      <h2 class="section-title">Trusted by thousands of viewers</h2>
+      <p class="section-subtitle">
+        See what our customers say about their IPTV Premium experience.
+      </p>
+    </div>
+    <div class="testimonials-grid">
+      {testimonials.map((t, i) => (
+        <div class={`testimonial-card card reveal reveal-delay-${i + 1}`}>
+          <div class="stars">
+            {Array.from({ length: t.rating }).map(() => (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ))}
+          </div>
+          <p class="testimonial-text">"{t.text}"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">{t.avatar}</div>
+            <div>
+              <div class="testimonial-name">{t.name}</div>
+              <div class="testimonial-location">{t.location}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    background: var(--white);
+  }
+
+  .section-heading {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue-500);
+    background: rgba(37, 99, 235, 0.06);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    margin-bottom: 20px;
+  }
+
+  .section-heading .section-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .section-heading .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-500);
+    margin-top: 14px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    padding: 32px 28px;
+  }
+
+  .stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 18px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--blue-500);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .testimonial-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .testimonial-location {
+    font-size: 0.8rem;
+    color: var(--gray-400);
+  }
+
+  @media (max-width: 868px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+</style>
