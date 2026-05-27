@@ -1,0 +1,212 @@
+---
+const faqs = [
+  {
+    q: 'How do I get started with IPTV Premium?',
+    a: 'Choose your plan (Eagle 4K or Strong 8K), click "Buy Now", and contact us on WhatsApp. Our team will activate your subscription within minutes and guide you through the setup.',
+  },
+  {
+    q: 'What devices are supported?',
+    a: 'Our service works on Smart TVs (Samsung, LG, Sony), Android TV boxes, MAG boxes, Amazon Fire Stick, smartphones (iOS & Android), tablets, PCs, and laptops. Most devices with an internet connection are compatible.',
+  },
+  {
+    q: 'What internet speed do I need?',
+    a: 'For HD streaming, we recommend at least 10 Mbps. For 4K streaming, 25 Mbps or higher. For 8K content, a stable 50 Mbps+ connection is recommended for the best experience.',
+  },
+  {
+    q: 'Do you offer a free trial?',
+    a: 'Yes! We offer a free 24-hour trial so you can test our service before purchasing. Contact us on WhatsApp to request your trial with no obligation.',
+  },
+  {
+    q: 'What is Hot Player and how does activation work?',
+    a: 'Hot Player is a premium media player included free with both plans. It provides enhanced streaming features, better stability, and full EPG support. We activate it for you remotely after purchase.',
+  },
+  {
+    q: 'Can I watch on multiple devices simultaneously?',
+    a: 'Yes, both plans support multiple connections. The exact number of simultaneous streams depends on your plan. Contact us for specific multi-device setup options.',
+  },
+  {
+    q: 'What payment methods do you accept?',
+    a: 'We accept PayPal, credit/debit cards, cryptocurrency (Bitcoin, Ethereum, USDT), and bank transfers. Contact us on WhatsApp for the complete list of payment options.',
+  },
+  {
+    q: 'Is there a money-back guarantee?',
+    a: 'Absolutely. We offer a 14-day money-back guarantee on all plans. If you are not satisfied for any reason, we will refund your payment — no questions asked.',
+  },
+];
+---
+
+<section id="faq" class="section faq-section">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div class="section-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ
+      </div>
+      <h2 class="section-title">Frequently asked questions</h2>
+      <p class="section-subtitle">
+        Everything you need to know about IPTV Premium. Still have questions? Reach out on WhatsApp.
+      </p>
+    </div>
+    <div class="faq-list">
+      {faqs.map((faq, i) => (
+        <div class={`faq-item card reveal reveal-delay-${(i % 4) + 1}`}>
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-number">{String(i + 1).padStart(2, '0')}</span>
+            <span class="faq-text">{faq.q}</span>
+            <svg class="faq-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>{faq.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    background: var(--gray-50);
+  }
+
+  .section-heading {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue-500);
+    background: rgba(37, 99, 235, 0.06);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    margin-bottom: 20px;
+  }
+
+  .section-heading .section-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .section-heading .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-500);
+    margin-top: 14px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .faq-item {
+    overflow: hidden;
+  }
+
+  .faq-item.open {
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.1), var(--shadow-card);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    background: none;
+    border: none;
+    color: var(--gray-900);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    letter-spacing: -0.01em;
+  }
+
+  .faq-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--blue-500);
+    min-width: 24px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .faq-text {
+    flex: 1;
+  }
+
+  .faq-arrow {
+    color: var(--gray-400);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow {
+    transform: rotate(180deg);
+    color: var(--blue-500);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 22px;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding: 0 22px 18px;
+  }
+
+  .faq-answer p {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .faq-question {
+      padding: 16px;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .faq-item.open .faq-answer {
+      padding: 0 16px 16px;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item?.classList.contains('open');
+
+      document.querySelectorAll('.faq-item.open').forEach((el) => {
+        el.classList.remove('open');
+        el.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        item?.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
