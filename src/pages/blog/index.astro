@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function readingTime(body: string): string {
+  const wpm = 200;
+  const words = body.trim().split(/\s+/).length;
+  const min = Math.ceil(words / wpm);
+  return `${min} min read`;
+}
+---
+
+<BaseLayout
+  title="Blog — IPTV Premium | Guides, Comparisons & Sports News"
+  description="Explore IPTV guides, plan comparisons (Eagle 4K vs Strong 8K), sports channel reviews, and setup tutorials."
+  ogImage="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=1200&q=80"
+>
+  <main>
+    <section class="blog-section">
+      <div class="container">
+        <div class="blog-heading">
+          <div class="blog-label">Our Blog</div>
+          <h1 class="blog-title">Latest articles</h1>
+          <p class="blog-subtitle">
+            Guides, comparisons, and tips to get the most from your IPTV Premium subscription.
+          </p>
+        </div>
+
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <a href={`/blog/${post.slug}`} class="blog-card">
+              <div class="blog-card-image">
+                <img src={post.data.image} alt={post.data.title} loading="lazy" />
+                {post.data.category && <span class="blog-card-cat">{post.data.category}</span>}
+              </div>
+              <div class="blog-card-body">
+                <div class="blog-card-meta">
+                  <time datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
+                  <span class="blog-card-read">{readingTime(post.body)}</span>
+                </div>
+                <h2 class="blog-card-title">{post.data.title}</h2>
+                <p class="blog-card-desc">{post.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .blog-section {
+    padding: 140px 0 100px;
+    background: var(--white);
+    min-height: 100vh;
+  }
+
+  .blog-heading {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .blog-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue-500);
+    background: var(--blue-50);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    margin-bottom: 20px;
+  }
+
+  .blog-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--gray-900);
+    margin-bottom: 14px;
+  }
+
+  .blog-subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-500);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px -12px rgba(0,0,0,0.1);
+    border-color: var(--gray-300);
+  }
+
+  .blog-card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: var(--gray-50);
+  }
+
+  .blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .blog-card:hover .blog-card-image img {
+    transform: scale(1.05);
+  }
+
+  .blog-card-cat {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--blue-500);
+    color: var(--white);
+  }
+
+  .blog-card-body {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .blog-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--gray-400);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .blog-card-read {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .blog-card-read::before {
+    content: '';
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--gray-300);
+  }
+
+  .blog-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+    transition: color 0.25s ease;
+  }
+
+  .blog-card:hover .blog-card-title {
+    color: var(--blue-500);
+  }
+
+  .blog-card-desc {
+    font-size: 0.88rem;
+    color: var(--gray-500);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  @media (max-width: 900px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .blog-section {
+      padding: 120px 0 64px;
+    }
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+    .blog-card-image {
+      height: 180px;
+    }
+  }
+</style>

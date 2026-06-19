@@ -1,0 +1,182 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+const latest = posts.slice(0, 3);
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+{latest.length > 0 && (
+  <section class="latest-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div class="section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Latest from our blog
+        </div>
+        <h2 class="section-title">Guides & news</h2>
+        <p class="section-subtitle">
+          Tips, comparisons, and updates to help you get the most from your IPTV subscription.
+        </p>
+      </div>
+      <div class="latest-grid">
+        {latest.map((post) => (
+          <a href={`/blog/${post.slug}`} class="latest-card reveal">
+            <div class="latest-card-img">
+              <img src={post.data.image} alt={post.data.title} loading="lazy" />
+              {post.data.category && <span class="latest-card-cat">{post.data.category}</span>}
+            </div>
+            <div class="latest-card-body">
+              <time class="latest-card-date" datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
+              <h3 class="latest-card-title">{post.data.title}</h3>
+              <p class="latest-card-desc">{post.data.description}</p>
+              <span class="latest-card-link">
+                Read article
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="latest-cta reveal">
+        <a href="/blog" class="btn btn-outline">
+          View all articles
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .latest-section {
+    padding: 100px 0;
+    background: var(--white);
+  }
+
+  .latest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .latest-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .latest-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px -12px rgba(0,0,0,0.1);
+    border-color: var(--gray-300);
+  }
+
+  .latest-card-img {
+    position: relative;
+    height: 190px;
+    overflow: hidden;
+    background: var(--gray-50);
+  }
+
+  .latest-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .latest-card:hover .latest-card-img img {
+    transform: scale(1.05);
+  }
+
+  .latest-card-cat {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--blue-500);
+    color: var(--white);
+  }
+
+  .latest-card-body {
+    padding: 20px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .latest-card-date {
+    font-size: 0.78rem;
+    color: var(--gray-400);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .latest-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+    transition: color 0.25s ease;
+  }
+
+  .latest-card:hover .latest-card-title {
+    color: var(--blue-500);
+  }
+
+  .latest-card-desc {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 14px;
+  }
+
+  .latest-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--blue-500);
+    transition: gap 0.25s ease;
+  }
+
+  .latest-card:hover .latest-card-link {
+    gap: 10px;
+  }
+
+  .latest-cta {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 800px) {
+    .latest-grid {
+      grid-template-columns: 1fr;
+    }
+    .latest-section {
+      padding: 64px 0;
+    }
+  }
+</style>

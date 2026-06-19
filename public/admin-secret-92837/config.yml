@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: MohamedRahoumi/IPTV-PREMIUM-LANDING
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Description", name: "description", widget: "text", required: true }
+      - { label: "Publish Date", name: "publishDate", widget: "datetime", required: true }
+      - { label: "Image", name: "image", widget: "image", required: true }
+      - { label: "Category", name: "category", widget: "string", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: true }
