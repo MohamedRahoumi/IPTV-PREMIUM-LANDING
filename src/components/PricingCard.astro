@@ -10,7 +10,7 @@ interface Props {
 
 const { name, price, features, variant = 'standard', badge, subtitle } = Astro.props;
 
-const prefix = name === 'Strong 8K' ? 'strong' : 'eagle';
+const prefix = name === 'Premium' ? 'strong' : 'eagle';
 ---
 
 <div class="pricing-card" data-variant={variant}>
