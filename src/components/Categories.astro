@@ -7,6 +7,7 @@ const categories = [
     image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&q=80',
     alt: 'Football stadium with floodlights at night',
     color: '#2563eb',
+    key: 'cat1',
   },
   {
     title: 'Premium Movies',
@@ -15,6 +16,7 @@ const categories = [
     image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&q=80',
     alt: 'Movie theater with red seats and screen',
     color: '#0ea5e9',
+    key: 'cat2',
   },
   {
     title: 'TV Series',
@@ -23,6 +25,7 @@ const categories = [
     image: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&q=80',
     alt: 'Person holding remote control on sofa watching TV',
     color: '#8b5cf6',
+    key: 'cat3',
   },
 ];
 ---
@@ -32,10 +35,10 @@ const categories = [
     <div class="section-heading reveal">
       <div class="section-label">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        Entertainment Library
+        <span data-i18n="categories.label">Entertainment Library</span>
       </div>
-      <h2 class="section-title">What you can watch</h2>
-      <p class="section-subtitle">
+      <h2 class="section-title" data-i18n="categories.title">What you can watch</h2>
+      <p class="section-subtitle" data-i18n="categories.desc">
         Access an enormous library of live sports, premium movies, and top TV series — all in crystal-clear quality.
       </p>
     </div>
@@ -52,13 +55,13 @@ const categories = [
             />
             <div class="category-overlay"></div>
             <div class="category-badge" style={`background: ${cat.color};`}>
-              {cat.title}
+              <span data-i18n={`categories.${cat.key}.title`}>{cat.title}</span>
             </div>
           </div>
           <div class="category-info">
-            <h3 class="category-title">{cat.title}</h3>
-            <p class="category-subtitle">{cat.subtitle}</p>
-            <p class="category-desc">{cat.desc}</p>
+            <h3 class="category-title"><span data-i18n={`categories.${cat.key}.title`}>{cat.title}</span></h3>
+            <p class="category-subtitle"><span data-i18n={`categories.${cat.key}.subtitle`}>{cat.subtitle}</span></p>
+            <p class="category-desc"><span data-i18n={`categories.${cat.key}.desc`}>{cat.desc}</span></p>
           </div>
         </article>
       ))}

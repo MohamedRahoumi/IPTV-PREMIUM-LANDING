@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import StickyWhatsApp from '../../components/StickyWhatsApp.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -28,7 +31,7 @@ function readingTime(body: string): string {
   const wpm = 200;
   const words = body.trim().split(/\s+/).length;
   const min = Math.ceil(words / wpm);
-  return `${min} min read`;
+  return `${min}`;
 }
 
 const siteUrl = 'https://iptv-premium.com';
@@ -57,19 +60,20 @@ const ldJson = {
   ogImage={ogImage}
   ogType="article"
 >
+  <Nav />
   <main>
     <article class="article-section">
       <div class="container">
         <div class="article-header">
-          <a href="/blog" class="article-back">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            Back to blog
-          </a>
+            <a href="/blog" class="article-back" data-i18n="blog.back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Back to blog
+            </a>
           {data.category && <span class="article-cat">{data.category}</span>}
           <h1 class="article-title">{data.title}</h1>
           <div class="article-meta">
             <time datetime={data.publishDate.toISOString()}>{formatDate(data.publishDate)}</time>
-            <span>{readingTime(post.body)}</span>
+            <span>{readingTime(post.body)} <span data-i18n="blog.minRead">min read</span></span>
           </div>
         </div>
 
@@ -94,7 +98,7 @@ const ldJson = {
     {related.length > 0 && (
       <section class="related-section">
         <div class="container">
-          <h2 class="related-title">Related articles</h2>
+          <h2 class="related-title" data-i18n="blog.related">Related articles</h2>
           <div class="blog-grid">
             {related.map((r) => (
               <a href={`/blog/${r.slug}`} class="blog-card">
@@ -117,7 +121,8 @@ const ldJson = {
       </section>
     )}
   </main>
-
+  <Footer />
+  <StickyWhatsApp />
   <script type="application/ld+json" set:html={JSON.stringify(ldJson, null, 2)} />
 </BaseLayout>
 

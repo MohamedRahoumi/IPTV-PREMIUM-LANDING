@@ -9,29 +9,31 @@ interface Props {
 }
 
 const { name, price, features, variant = 'standard', badge, subtitle } = Astro.props;
+
+const prefix = name === 'Strong 8K' ? 'strong' : 'eagle';
 ---
 
 <div class="pricing-card" data-variant={variant}>
-  {badge && <div class="pricing-badge">{badge}</div>}
+  {badge && <div class="pricing-badge" data-i18n="pricing.mostPopular">{badge}</div>}
   <div class="pricing-top">
     <h3 class="pricing-name">{name}</h3>
-    {subtitle && <p class="pricing-sub">{subtitle}</p>}
+    {subtitle && <p class="pricing-sub" data-i18n="pricing.subtitle">{subtitle}</p>}
     <div class="pricing-amount">
       <span class="pricing-dollar">$</span>
       <span class="pricing-number">{price}</span>
-      <span class="pricing-period">/year</span>
+      <span class="pricing-period" data-i18n="pricing.perYear">/year</span>
     </div>
   </div>
   <ul class="pricing-features">
-    {features.map((f) => (
+    {features.map((f, i) => (
       <li class="pricing-feature">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>{f}</span>
+        <span data-i18n={`pricing.feature.${prefix}.${i + 1}`}>{f}</span>
       </li>
     ))}
   </ul>
   <div class="pricing-actions">
-    <a href="#contact" class="btn-pricing-primary">
+    <a href="#contact" class="btn-pricing-primary" data-i18n="pricing.buyNow" data-i18n-price={price}>
       Buy Now — ${price}
     </a>
   </div>

@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import StickyWhatsApp from '../../components/StickyWhatsApp.astro';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog');
@@ -13,7 +16,7 @@ function readingTime(body: string): string {
   const wpm = 200;
   const words = body.trim().split(/\s+/).length;
   const min = Math.ceil(words / wpm);
-  return `${min} min read`;
+  return `${min}`;
 }
 ---
 
@@ -22,13 +25,14 @@ function readingTime(body: string): string {
   description="Explore IPTV guides, plan comparisons (Eagle 4K vs Strong 8K), sports channel reviews, and setup tutorials."
   ogImage="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=1200&q=80"
 >
+  <Nav />
   <main>
     <section class="blog-section">
       <div class="container">
         <div class="blog-heading">
-          <div class="blog-label">Our Blog</div>
-          <h1 class="blog-title">Latest articles</h1>
-          <p class="blog-subtitle">
+          <div class="blog-label" data-i18n="blog.label">Our Blog</div>
+          <h1 class="blog-title" data-i18n="blog.title">Latest articles</h1>
+          <p class="blog-subtitle" data-i18n="blog.subtitle">
             Guides, comparisons, and tips to get the most from your IPTV Premium subscription.
           </p>
         </div>
@@ -43,7 +47,7 @@ function readingTime(body: string): string {
               <div class="blog-card-body">
                 <div class="blog-card-meta">
                   <time datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
-                  <span class="blog-card-read">{readingTime(post.body)}</span>
+                  <span class="blog-card-read">{readingTime(post.body)} <span data-i18n="blog.minRead">min read</span></span>
                 </div>
                 <h2 class="blog-card-title">{post.data.title}</h2>
                 <p class="blog-card-desc">{post.data.description}</p>
@@ -54,6 +58,8 @@ function readingTime(body: string): string {
       </div>
     </section>
   </main>
+  <Footer />
+  <StickyWhatsApp />
 </BaseLayout>
 
 <style>
